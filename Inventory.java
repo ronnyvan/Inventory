@@ -51,14 +51,14 @@ public class Inventory {
         }
     
         ListNode current = front;
-        String result = "";
+        String ret = "";
     
         while (current != null) {
             Item item = (Item) current.getValue();
-            result += item.toString() + "\n";
+            ret += item.toString() + "\n";
             current = current.getNext();
         }
     
-        return result;
+        return ret;
     }
 }
