@@ -42,7 +42,7 @@ public class ListNode
         next = newNext;
     }
     public String toString() {
-        return value.toString(); // Assuming value is not null and has a meaningful toString() method
+        return value.toString(); 
     }
 
 }
