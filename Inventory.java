@@ -1,4 +1,3 @@
-
 public class Inventory {
     public ListNode front;
 
@@ -8,6 +7,7 @@ public class Inventory {
 
     public void addItem(Item newItem) {
         ListNode newNode = new ListNode(newItem);
+        
         if (front == null) {
             front = newNode;
             return;
@@ -18,47 +18,36 @@ public class Inventory {
             }
             x.setNext(newNode);
         }
-
     }
 
     public void removeUnavailableItems() {
-        ListNode currentNode = front;
-        ListNode prev = null;
-        while (currentNode != null) {
-            Item currentItem = (Item) currentNode.getValue();
-            if (currentItem.isInStock()) {
-                if (prev != null) {
-                    prev.setNext(currentNode);
-                } else {
-                    front = currentNode;
-                }
-                prev = currentNode;
-            }
-            currentNode = currentNode.getNext();
+        while( front != null && !((Item)front.getValue()).isInStock() ){
+            front = front.getNext();
         }
-        
-        if (prev != null) {
-            prev.setNext(null);
-        } else {
-            front = null;
+
+        ListNode currNode = front;
+        while(currNode != null && currNode.getNext() != null){
+            ListNode nextNode = currNode.getNext();
+            Item nextItem = (Item) nextNode.getValue();
+
+            if(!nextItem.isInStock()) {currNode.setNext(nextNode.getNext());} 
+            else {currNode = nextNode;}
         }
     }
 
-    @Override
     public String toString() {
         if (front == null) {
             return "Empty Inventory";
         }
     
         ListNode current = front;
-        String ret = "";
+        String result = "";
     
         while (current != null) {
             Item item = (Item) current.getValue();
-            ret += item.toString() + "\n";
+            result += item.toString() + "\n";
             current = current.getNext();
         }
-    
-        return ret;
+        return result;
     }
 }
